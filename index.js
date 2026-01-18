@@ -4,6 +4,7 @@ const { joinVoiceChannel, getVoiceConnection } = require("@discordjs/voice");
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildVoiceStates,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent,
@@ -23,7 +24,7 @@ client.on("messageCreate", async (message) => {
   const cmd = message.content.slice(PREFIX.length).trim();
 
   if (cmd === "join") {
-    const vc = message.member.voice.channel;
+    const vc = message.member?.voice?.channel;
     if (!vc) return message.reply("vào voice trước đã 😾");
 
     joinVoiceChannel({
